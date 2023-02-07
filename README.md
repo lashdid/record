@@ -1,6 +1,6 @@
 # RecorD
 
-### Online Screen Recorder
+An online screen recorder without login
 
 ## Why did I make this?
 
