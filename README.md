@@ -4,7 +4,7 @@
 
 ## Why did I make this?
 
-Sometimes I need to record something from my screen, because there is no default software for screen recording, downloading another software would be a waste of time as I only need to use it once for a while.
+Sometimes I need to record something from my screen. Because there is no default software for screen recording, downloading another software would be a waste of time as I only need to use it once for a while.
 
 #### But there is [ScreenApp.IO](https://screenapp.io/)?
 
