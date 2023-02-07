@@ -8,6 +8,6 @@ Sometimes I need to record something from my screen, because there is no default
 
 #### But there is [ScreenApp.IO](https://screenapp.io/)?
 
-The output video from this website is in `.webm` format, so I have to first convert it to `.mp4`, and I'm too lazy for that
+The output video from this website is in `.webm` format, so I have to convert it to `.mp4`, and I'm too lazy for that
 
 also to learn qwik framework
