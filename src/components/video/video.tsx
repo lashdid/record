@@ -1,8 +1,9 @@
-import { component$, Signal, useStylesScoped$ } from '@builder.io/qwik';
-import styles from './video.css?inline';
+import type { Signal } from "@builder.io/qwik";
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import styles from "./video.css?inline";
 
 interface VideoProps {
-  videoRef: Signal<HTMLVideoElement | undefined>
+  videoRef: Signal<HTMLVideoElement | undefined>;
 }
 
 export default component$((props: VideoProps) => {
@@ -10,9 +11,9 @@ export default component$((props: VideoProps) => {
 
   return (
     <>
-      <div class='video-container'>
-        <div class='overlay'/>
-        <video ref={props.videoRef} autoPlay/>
+      <div class="video-container">
+        <div class="overlay" />
+        <video ref={props.videoRef} autoPlay />
       </div>
     </>
   );
