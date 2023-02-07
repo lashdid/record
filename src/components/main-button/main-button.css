@@ -1,0 +1,21 @@
+.button-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+button {
+  padding: 1rem;
+  background-color: #090909;
+  border: 0.2rem solid white;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+}
+
+button:hover {
+  transform: scale(130%);
+}

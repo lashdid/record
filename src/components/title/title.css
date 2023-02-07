@@ -1,0 +1,83 @@
+.title-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.corner-right {
+  width: 5rem;
+  height: 5rem;
+  align-self: flex-end;
+  border-bottom: 0.5rem solid white;
+  border-right: 0.5rem solid white;
+}
+
+.corner-left {
+  width: 5rem;
+  height: 5rem;
+  border-top: 0.5rem solid white;
+  border-left: 0.5rem solid white;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20rem;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 0.3rem white;
+  font-family: 'Alfa Slab One', cursive;
+  margin: 0;
+  z-index: 1;
+}
+
+h1:hover {
+  rotate: 10deg;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  z-index: 1;
+}
+
+.circle-lamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 10rem;
+  background-color: transparent;
+  border-radius: 10rem;
+  margin-top: 3rem;
+  border: 0.5rem solid red;
+  z-index: 2;
+}
+
+.circle-lamp::before {
+  content: '';
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 10rem;
+  background-color: red;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 3rem 1rem red;
+  }
+  50% {
+    box-shadow: 0 0 8rem 1rem red;
+  }
+  100% {
+    box-shadow: 0 0 3rem 1rem red;
+  }
+}
