@@ -9,9 +9,9 @@ import Video from "~/components/video/video";
 
 export default component$(() => {
   const video = useSignal<HTMLVideoElement>();
-  const error = useSignal<String>('')
-  const caption = useSignal<String>('Free Online Screen Recorder')
-  const recorder = useSignal<MediaRecorder>()
+  const error = useSignal<string>('')
+  const caption = useSignal<string>('Free Online Screen Recorder')
+  // const recorder = useSignal<MediaRecorder>()
   const recordState = useSignal<'stream' | 'start' | 'stop'>('stream')
   const getScreen = $(async () => {
     await navigator.mediaDevices.getDisplayMedia({
@@ -43,11 +43,11 @@ export default component$(() => {
   return (
     <section>
       <Title state={recordState}/>
-      <Caption>{`${caption.value}`}</Caption>
+      <Caption>{caption.value}</Caption>
       {recordState.value === 'stream' && <MainButton onClick$={getScreen}>Start Recording</MainButton>}
       {recordState.value === 'start' && <RecordButton onClick$={startRecord}/>}
       {recordState.value === 'stop' && <RecordButton type="stop" onClick$={stopRecord}/>}
-      <Error>{`${error.value}`}</Error>
+      <Error>{error.value}</Error>
       <Video videoRef={video}/>
     </section>
   );
