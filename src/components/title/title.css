@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   z-index: 1;
+  transition: scale ease-in-out 0.2s;
 }
 
 .corner-right {
@@ -37,14 +38,6 @@ h1 {
 
 h1:hover {
   rotate: 10deg;
-}
-
-h2 {
-  text-align: center;
-  color: white;
-  font-family: 'Nunito', sans-serif;
-  margin: 0;
-  z-index: 1;
 }
 
 .circle-lamp {

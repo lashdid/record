@@ -1,0 +1,39 @@
+.button-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+button {
+  --radius: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  border: 0.3rem solid red;
+  border-radius: 10rem;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 1.5rem;
+}
+
+button::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+  background-color: red;
+}
+
+button:hover {
+  transform: scale(130%);
+}
+
+button:active {
+  transform: scale(100%);
+}

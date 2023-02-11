@@ -19,3 +19,7 @@ button {
 button:hover {
   transform: scale(130%);
 }
+
+button:active {
+  transform: scale(100%);
+}
