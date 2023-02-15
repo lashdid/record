@@ -3,14 +3,14 @@ import { component$, useStylesScoped$ } from "@builder.io/qwik";
 import styles from "./title.css?inline";
 
 interface TitleProps {
-  state: Signal<'stream' | 'start' | 'stop'>
+  state: 'stream' | 'start' | 'stop'
 }
 
 export default component$((props: TitleProps) => {
   useStylesScoped$(styles);
 
   return (
-    <div class="title-container" style={{scale: props.state.value !== 'stream' ? '50%' : '100%'}}>
+    <div class="title-container" style={{scale: props.state !== 'stream' ? '50%' : '100%'}}>
       <div class="corner-left" />
       <div class="title">
         <h1>R</h1>

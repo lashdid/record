@@ -1,10 +1,20 @@
-import { component$, Slot, useStylesScoped$ } from '@builder.io/qwik';
-import styles from './caption.css?inline';
+import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
+import styles from "./caption.css?inline";
 
-export default component$(() => {
+interface CaptionProps {
+  type: "small" | "h2";
+}
+
+export default component$((props: CaptionProps) => {
   useStylesScoped$(styles);
 
-  return (
-    <h2><Slot/></h2>
+  return props.type === "small" ? (
+    <small>
+      <Slot />
+    </small>
+  ) : (
+    <h2>
+      <Slot />
+    </h2>
   );
 });

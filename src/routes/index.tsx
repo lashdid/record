@@ -1,4 +1,12 @@
-import { component$, $, useSignal } from "@builder.io/qwik";
+import {
+  component$,
+  $,
+  useSignal,
+  useStore,
+  noSerialize,
+  NoSerialize,
+  useClientEffect$,
+} from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import Caption from "~/components/caption/caption";
 import Error from "~/components/error/error";
@@ -6,49 +14,100 @@ import MainButton from "~/components/main-button/main-button";
 import RecordButton from "~/components/record-button/record-button";
 import Title from "~/components/title/title";
 import Video from "~/components/video/video";
+import type { RecorderProps, TextStateProps } from "~/types";
+import { createTimeInterval, generateVideo, getScreen, resetRecorder } from "~/utils/functions";
 
 export default component$(() => {
   const video = useSignal<HTMLVideoElement>();
-  const error = useSignal<string>('')
-  const caption = useSignal<string>('Free Online Screen Recorder')
-  // const recorder = useSignal<MediaRecorder>()
-  const recordState = useSignal<'stream' | 'start' | 'stop'>('stream')
-  const getScreen = $(async () => {
-    await navigator.mediaDevices.getDisplayMedia({
-      video: true
-    }).then((res) => {
-      // recorder.value = new MediaRecorder(res, {
-      //   mimeType: 'video/webm'
-      // })
-      video!.value!.srcObject = res
-      recordState.value = 'start'
-      caption.value = '00:00'
-      error.value = ''
-    }).catch((err) => {
-      error.value = 'Please "Allow" us to see your screen'
-      console.log(err)
-    })
-  })
+  const textState = useStore<TextStateProps>({
+    error: "",
+    caption: "Free Online Screen Recorder",
+    link: "",
+  });
+  const recorder = useStore<RecorderProps>({
+    media: null,
+    state: "stream",
+    mediaBlobs: [],
+    time: {
+      seconds: 0,
+      minutes: 0,
+    },
+  });
+
+  useClientEffect$(({ track, cleanup }) => {
+    track(() => recorder.state);
+    let { state, time } = recorder;
+    let interval: NodeJS.Timeout | null = null;
+    if (state === "stop") {
+      interval = createTimeInterval(time, (timeString) => {
+        textState.caption = timeString;
+      });
+    }
+    cleanup(() => clearInterval(interval!));
+  });
+
+  const setRecorder = $(async () => {
+    await getScreen(
+      "webm",
+      (res, mime) => {
+        const setRecorder = new MediaRecorder(res, {
+          mimeType: mime,
+        });
+        recorder.media = noSerialize(setRecorder);
+        video!.value!.srcObject = res;
+        recorder.state = "start";
+        textState.caption = "00:00";
+        textState.error = "";
+      },
+      (err) => {
+        textState.error = 'Please "Allow" us to see your screen';
+      }
+    );
+  });
 
   const startRecord = $(() => {
-    // recorder.value?.start()
-    recordState.value = 'stop'
-  })
+    let {media} = recorder
+    if (!media?.stream.active) {
+      resetRecorder(recorder, textState)
+      return;
+    }
+    recorder.state = "stop";
+    media?.start();
+    media!.ondataavailable = (blob) => {
+      if (!media?.stream.active) {
+        resetRecorder(recorder, textState)
+        return;
+      }
+      if (blob.data.size > 0) {
+        recorder.mediaBlobs.push(blob.data);
+      }
+    };
+  });
 
   const stopRecord = $(() => {
-    // recorder.value?.stop()
-    recordState.value = 'start'
-  })
+    let {media} = recorder
+    recorder.state = "start";
+    media?.stop();
+    media!.onstop = (e) => {
+      textState.caption = "00:00";
+      let url = generateVideo(recorder)
+      alert(url);
+    };
+  });
 
   return (
     <section>
-      <Title state={recordState}/>
-      <Caption>{caption.value}</Caption>
-      {recordState.value === 'stream' && <MainButton onClick$={getScreen}>Start Recording</MainButton>}
-      {recordState.value === 'start' && <RecordButton onClick$={startRecord}/>}
-      {recordState.value === 'stop' && <RecordButton type="stop" onClick$={stopRecord}/>}
-      <Error>{error.value}</Error>
-      <Video videoRef={video}/>
+      <Title state={recorder.state} />
+      <Caption type="h2">{textState.caption}</Caption>
+      {recorder.state === "stream" && (
+        <MainButton onClick$={setRecorder}>Start Recording</MainButton>
+      )}
+      {recorder.state === "start" && <RecordButton onClick$={startRecord} />}
+      {recorder.state === "stop" && (
+        <RecordButton state="stop" onClick$={stopRecord} />
+      )}
+      {recorder.state === "stream" && <Error>{textState.error}</Error>}
+      <Video videoRef={video} />
     </section>
   );
 });

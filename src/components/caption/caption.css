@@ -5,3 +5,10 @@ h2 {
   margin: 0;
   z-index: 1;
 }
+
+small {
+  text-align: center;
+  color: gray;
+  margin: 1rem 0;
+  z-index: 1;
+}
