@@ -58,7 +58,7 @@ export default component$(() => {
         textState.caption = "00:00";
         textState.error = "";
       },
-      (err) => {
+      () => {
         textState.error = 'Please "Allow" us to see your screen';
       }
     );
@@ -84,12 +84,12 @@ export default component$(() => {
   });
 
   const stopRecord = $(() => {
-    let {media} = recorder
+    const {media} = recorder
     recorder.state = "start";
     media?.stop();
-    media!.onstop = (e) => {
+    media!.onstop = () => {
       textState.caption = "00:00";
-      let url = generateVideo(recorder)
+      const url = generateVideo(recorder)
       alert(url);
     };
   });

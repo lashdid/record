@@ -33,8 +33,8 @@ export function createTimeInterval(
       time.seconds = 0;
       time.minutes++;
     }
-    let secondString = getTimeString(time.seconds);
-    let minuteString = getTimeString(time.minutes);
+    const secondString = getTimeString(time.seconds);
+    const minuteString = getTimeString(time.minutes);
     callback(`${minuteString}:${secondString}`);
   }, 1000);
 }
@@ -50,10 +50,11 @@ export function resetRecorder(
 }
 
 export function generateVideo(recorder: RecorderProps) {
-  let { time, mediaBlobs } = recorder;
+  const { time } = recorder;
+  let { mediaBlobs } = recorder;
   time.seconds = 0;
   time.minutes = 0;
-  let blob = new Blob(mediaBlobs, {
+  const blob = new Blob(mediaBlobs, {
     type: mediaBlobs![0].type,
   });
   mediaBlobs = [];
