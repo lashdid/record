@@ -4,7 +4,6 @@ import {
   useSignal,
   useStore,
   noSerialize,
-  NoSerialize,
   useClientEffect$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";

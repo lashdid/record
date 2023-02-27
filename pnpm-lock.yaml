@@ -4,12 +4,14 @@ specifiers:
   '@builder.io/qwik': 0.17.4
   '@builder.io/qwik-city': 0.0.128
   '@types/eslint': 8.21.0
+  '@types/ffmpeg.js': ^3.1.3
   '@types/node': ^18.11.18
   '@types/node-fetch': latest
   '@typescript-eslint/eslint-plugin': 5.50.0
   '@typescript-eslint/parser': 5.50.0
   eslint: 8.33.0
   eslint-plugin-qwik: 0.17.4
+  ffmpeg.js: ^4.2.9003
   node-fetch: 3.3.0
   prettier: 2.8.3
   typescript: 4.9.5
@@ -18,10 +20,14 @@ specifiers:
   vite: 4.0.4
   vite-tsconfig-paths: 3.5.0
 
+dependencies:
+  ffmpeg.js: 4.2.9003
+
 devDependencies:
   '@builder.io/qwik': 0.17.4_undici@5.16.0
   '@builder.io/qwik-city': 0.0.128
   '@types/eslint': 8.21.0
+  '@types/ffmpeg.js': 3.1.3
   '@types/node': 18.11.19
   '@types/node-fetch': 2.6.2
   '@typescript-eslint/eslint-plugin': 5.50.0_go4drrxstycfikanvu45pi4vgq
@@ -464,6 +470,10 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+    dev: true
+
+  /@types/ffmpeg.js/3.1.3:
+    resolution: {integrity: sha512-kqDR3KxSxZg7It3/YGLVGUbrW3pxvYSQ5YR90w4V/GXyAdISzvlS/6Gzdt5y8vCwF+viu1nVl+fD6UBio1Z1UA==}
     dev: true
 
   /@types/hast/2.3.4:
@@ -1586,6 +1596,10 @@ packages:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.2.1
     dev: true
+
+  /ffmpeg.js/4.2.9003:
+    resolution: {integrity: sha512-l1JBr8HwnnJEaSwg5p8K3Ifbom8O2IDHsZp7UVyr6MzQ7gc32tt/2apoOuQAr/j76c+uDOjla799VSsBnRvSTg==}
+    dev: false
 
   /file-entry-cache/6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
