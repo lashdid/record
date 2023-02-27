@@ -14,6 +14,6 @@ export interface TextStateProps {
 export interface RecorderProps {
   media: NoSerialize<MediaRecorder> | null;
   state: "stream" | "start" | "stop";
-  mediaBlobs: Blob[];
+  mediaBlobs: NoSerialize<Blob[]> | [];
   time: TimeProps
 }

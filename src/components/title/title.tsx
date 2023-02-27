@@ -1,4 +1,3 @@
-import type { Signal } from "@builder.io/qwik";
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
 import styles from "./title.css?inline";
 

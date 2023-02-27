@@ -54,7 +54,7 @@ export function generateVideo(recorder: RecorderProps) {
   time.seconds = 0;
   time.minutes = 0;
   let blob = new Blob(mediaBlobs, {
-    type: mediaBlobs[0].type,
+    type: mediaBlobs![0].type,
   });
   mediaBlobs = [];
   return URL.createObjectURL(blob);

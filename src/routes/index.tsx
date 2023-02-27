@@ -35,7 +35,7 @@ export default component$(() => {
 
   useClientEffect$(({ track, cleanup }) => {
     track(() => recorder.state);
-    let { state, time } = recorder;
+    const { state, time } = recorder;
     let interval: NodeJS.Timeout | null = null;
     if (state === "stop") {
       interval = createTimeInterval(time, (timeString) => {
@@ -65,7 +65,7 @@ export default component$(() => {
   });
 
   const startRecord = $(() => {
-    let {media} = recorder
+    const {media} = recorder
     if (!media?.stream.active) {
       resetRecorder(recorder, textState)
       return;
@@ -78,7 +78,7 @@ export default component$(() => {
         return;
       }
       if (blob.data.size > 0) {
-        recorder.mediaBlobs.push(blob.data);
+        recorder.mediaBlobs = noSerialize([...recorder.mediaBlobs!, blob.data]);
       }
     };
   });
