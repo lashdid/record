@@ -18,7 +18,8 @@ This is already working but `.mp4` format won't work in firefox, because `h264 c
 supported in firefox. So if I want to record in `.mp4` format, I need to use another browser.
 Bruh.
 
-Maybe i will make an API to convert file with `ffmpeg` from cloud like [CloudConvert API](https://cloudconvert.com/api/). But i'm not that smart :v.
+Maybe i will make an API to convert file with `ffmpeg` from cloud like [CloudConvert API](https://cloudconvert.com/api/). 
+But i'm not that smart :v.
 
 Or i will use [CloudConvert API](https://cloudconvert.com/api/) free version 
 with only 25 files / day.
