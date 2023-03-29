@@ -1,9 +1,9 @@
-import { RecorderProps, TextStateProps, TimeProps } from "~/types";
+import type { RecorderProps, TextStateProps, TimeProps } from "~/types";
 import { getTimeString } from "~/utils/getTimeString";
 
 export async function getScreen(
   mediaType: string,
-  onSuccess: (res: MediaStream, mime: string) => void,
+  onSuccess: (res: MediaStream, mime: string, isSupported: boolean) => void,
   onError: (err: any) => void
 ) {
   await navigator.mediaDevices
@@ -11,12 +11,16 @@ export async function getScreen(
       video: true,
     })
     .then((res) => {
-      const mime = MediaRecorder.isTypeSupported(
-        `video/${mediaType}; codecs=vp9`
-      )
-        ? `video/${mediaType}; codecs=vp9`
-        : `video/${mediaType}`;
-      onSuccess(res, mime);
+      let mime, isSupported;
+      if(MediaRecorder.isTypeSupported(`video/${mediaType}; codecs=h264`)){
+        mime = `video/${mediaType}; codecs=h264`
+        isSupported = true
+      }
+      else {
+        mime = `video/${mediaType}`;
+        isSupported = false
+      }
+      onSuccess(res, mime, isSupported);
     })
     .catch((err) => {
       onError(err);
@@ -49,14 +53,25 @@ export function resetRecorder(
   textState.error = 'Please "Allow" us to see your screen';
 }
 
-export function generateVideo(recorder: RecorderProps) {
+export function resetVideo(recorder: RecorderProps){
   const { time } = recorder;
-  let { mediaBlobs } = recorder;
   time.seconds = 0;
   time.minutes = 0;
-  const blob = new Blob(mediaBlobs, {
-    type: mediaBlobs![0].type,
+  recorder.mediaBlobs = []
+}
+
+export function generateVideo(recorder: RecorderProps) {
+  const { time } = recorder;
+  time.seconds = 0;
+  time.minutes = 0;
+  const blob = new Blob(recorder.mediaBlobs, {
+    type: recorder.mediaBlobs![0].type,
   });
-  mediaBlobs = [];
+  recorder.mediaBlobs = [];
   return URL.createObjectURL(blob);
+}
+
+export function defaultName() {
+  const seconds = new Date().valueOf();
+  return `RecorD-${seconds}`
 }
