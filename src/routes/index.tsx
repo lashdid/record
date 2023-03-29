@@ -10,11 +10,18 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import Caption from "~/components/caption/caption";
 import Error from "~/components/error/error";
 import MainButton from "~/components/main-button/main-button";
+import Modal from "~/components/modal/modal";
 import RecordButton from "~/components/record-button/record-button";
 import Title from "~/components/title/title";
 import Video from "~/components/video/video";
 import type { RecorderProps, TextStateProps } from "~/types";
-import { createTimeInterval, generateVideo, getScreen, resetRecorder } from "~/utils/functions";
+import {
+  createTimeInterval,
+  generateVideo,
+  getScreen,
+  resetRecorder,
+  resetVideo,
+} from "~/utils/functions";
 
 export default component$(() => {
   const video = useSignal<HTMLVideoElement>();
@@ -32,7 +39,8 @@ export default component$(() => {
       minutes: 0,
     },
   });
-
+  const fileFormats = useSignal(["webm", "mp4"]);
+  const isModalOpen = useSignal(false);
   useClientEffect$(({ track, cleanup }) => {
     track(() => recorder.state);
     const { state, time } = recorder;
@@ -47,11 +55,12 @@ export default component$(() => {
 
   const setRecorder = $(async () => {
     await getScreen(
-      "webm",
-      (res, mime) => {
+      fileFormats.value[0],
+      (res, mime, isSupported) => {
         const setRecorder = new MediaRecorder(res, {
           mimeType: mime,
         });
+        if (!isSupported) fileFormats.value = ["webm"];
         recorder.media = noSerialize(setRecorder);
         video!.value!.srcObject = res;
         recorder.state = "start";
@@ -65,16 +74,16 @@ export default component$(() => {
   });
 
   const startRecord = $(() => {
-    const {media} = recorder
+    const { media } = recorder;
     if (!media?.stream.active) {
-      resetRecorder(recorder, textState)
+      resetRecorder(recorder, textState);
       return;
     }
     recorder.state = "stop";
     media?.start();
     media!.ondataavailable = (blob) => {
       if (!media?.stream.active) {
-        resetRecorder(recorder, textState)
+        resetRecorder(recorder, textState);
         return;
       }
       if (blob.data.size > 0) {
@@ -84,18 +93,36 @@ export default component$(() => {
   });
 
   const stopRecord = $(() => {
-    const {media} = recorder
+    const { media } = recorder;
     recorder.state = "start";
     media?.stop();
-    media!.onstop = () => {
-      textState.caption = "00:00";
-      const url = generateVideo(recorder)
-      alert(url);
-    };
+    textState.caption = "00:00";
+    isModalOpen.value = true;
   });
+
+  const onDownload = $((name: string, type: string) => {
+    const url = generateVideo(recorder);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${name}.${type}`;
+    link.click();
+    isModalOpen.value = false;
+  });
+
+  const onCancel = $(() => {
+    isModalOpen.value = false
+    resetVideo(recorder)
+  })
 
   return (
     <section>
+      {isModalOpen.value && (
+        <Modal
+          onDownload$={onDownload}
+          onCancel$={onCancel}
+          fileFormats={fileFormats.value}
+        />
+      )}
       <Title state={recorder.state} />
       <Caption type="h2">{textState.caption}</Caption>
       {recorder.state === "stream" && (
