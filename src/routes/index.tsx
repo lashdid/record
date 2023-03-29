@@ -94,9 +94,9 @@ export default component$(() => {
 
   const stopRecord = $(() => {
     const { media } = recorder;
+    textState.caption = "00:00";
     recorder.state = "start";
     media?.stop();
-    textState.caption = "00:00";
     isModalOpen.value = true;
   });
 
