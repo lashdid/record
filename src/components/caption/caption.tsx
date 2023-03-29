@@ -8,13 +8,15 @@ interface CaptionProps {
 export default component$((props: CaptionProps) => {
   useStylesScoped$(styles);
 
-  return props.type === "small" ? (
-    <small>
-      <Slot />
-    </small>
-  ) : (
-    <h2>
-      <Slot />
-    </h2>
-  );
+  return <>
+    {props.type === "small" ? (
+      <small>
+        <Slot />
+      </small>
+    ) : (
+      <h2>
+        <Slot />
+      </h2>
+    )}
+  </>
 });

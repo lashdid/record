@@ -1,0 +1,71 @@
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  border: 0.3rem solid white;
+  padding: 3rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.9);
+  gap: 2rem;
+}
+
+.modal-form {
+  display: flex;
+  gap: 2rem;
+}
+
+.modal-input {
+  width: 100%;
+  border: 0.2rem solid white;
+  padding: 1rem;
+  color: white;
+  background-color: transparent;
+}
+
+.modal-option {
+  color: white;
+  background-color: transparent;
+  border: 0.2rem solid white;
+  padding-inline: 1rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.modal-option option {
+  color: black;
+}
+
+.modal-button-container {
+  display: flex;
+  gap: 2rem;
+  align-self: center;
+}
+
+.modal-button {
+  padding: 1rem;
+  background-color: transparent;
+  border: 0.2rem solid white;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+}
+
+.modal-button:hover {
+  transform: scale(130%);
+}
+
+.modal-button:active {
+  transform: scale(100%);
+}
