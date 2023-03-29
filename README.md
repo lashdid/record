@@ -2,6 +2,8 @@
 
 An online screen recorder without login
 
+> :warning: This website won't work on mobile browser.
+
 ## Why did I make this?
 
 Sometimes I need to record something from my screen. Because there is no default software for screen recording, downloading another software would be a waste of memory as I only need to use it once for a while.
