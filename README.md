@@ -6,7 +6,7 @@ An online screen recorder without login
 
 ## Why did I make this?
 
-Sometimes I need to record something from my screen. Because there is no default software for screen recording, downloading another software would be a waste of memory as I only need to use it once for a while.
+Sometimes I need to record something from my screen. Because there is no default software for screen recording, downloading another software would be a waste of memory as I only need to use it once in a while.
 
 #### But there is [ScreenApp.IO](https://screenapp.io/)?
 
